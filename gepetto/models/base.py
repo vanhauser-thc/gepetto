@@ -1,7 +1,7 @@
 import abc
 
-GPT3_MODEL_NAME = "gpt-3.5-turbo-1106"
-GPT4_MODEL_NAME = "gpt-4-turbo"
+GPT3_MODEL_NAME = "llama3-70b-8192"
+GPT4_MODEL_NAME = "llama3-70b-8192"
 
 class LanguageModel(abc.ABC):
     @abc.abstractmethod

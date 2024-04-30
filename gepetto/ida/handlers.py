@@ -58,7 +58,7 @@ class ExplainHandler(idaapi.action_handler_t):
         v = ida_hexrays.get_widget_vdui(ctx.widget)
         gepetto.config.model.query_model_async(
             _("Can you explain what the following C function does and suggest a better name for "
-              "it?\n{decompiler_output}").format(decompiler_output=str(decompiler_output)),
+              "it? Take a breath and think carefully before you answer. Be brief and concise, only be elaborate on complex parts.\n```\n{decompiler_output}\n```\n").format(decompiler_output=str(decompiler_output)),
             functools.partial(comment_callback, address=idaapi.get_screen_ea(), view=v))
         return 1
 
@@ -123,8 +123,8 @@ class RenameHandler(idaapi.action_handler_t):
         decompiler_output = ida_hexrays.decompile(idaapi.get_screen_ea())
         v = ida_hexrays.get_widget_vdui(ctx.widget)
         gepetto.config.model.query_model_async(
-            _("Analyze the following C function:\n{decompiler_output}"
-              "\nSuggest better variable names, reply with a JSON array where keys are the original"
+            _("Analyze the following C function:\n```\n{decompiler_output}\n```"
+              "\nSuggest better variable names, reply only with a JSON array where keys are the original"
               " names and values are the proposed names. Do not explain anything, only print the "
               "JSON dictionary.").format(decompiler_output=str(decompiler_output)),
             functools.partial(rename_callback, address=idaapi.get_screen_ea(), view=v),

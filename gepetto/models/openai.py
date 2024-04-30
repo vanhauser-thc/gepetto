@@ -5,7 +5,7 @@ import threading
 
 import httpx as _httpx
 import ida_kernwin
-import openai
+import groq as openai 
 
 from gepetto.models.base import LanguageModel
 import gepetto.config
@@ -18,12 +18,12 @@ class GPT(LanguageModel):
         self.model = model
         # Get API key
         if not gepetto.config.parsed_ini.get('OpenAI', 'API_KEY'):
-            api_key = os.getenv("OPENAI_API_KEY")
+            api_key = os.getenv("GROQ_API_KEY")
         else:
             api_key = gepetto.config.parsed_ini.get('OpenAI', 'API_KEY')
         if not api_key:
-            print(_("Please edit the configuration file to insert your OpenAI API key!"))
-            raise ValueError("No valid OpenAI API key found")
+            print(_("Please edit the configuration file to insert your Groq API key!"))
+            raise ValueError("No valid Groq API key found")
 
         # Get OPENAPI proxy
         if not gepetto.config.parsed_ini.get('OpenAI', 'OPENAI_PROXY'):
@@ -37,7 +37,7 @@ class GPT(LanguageModel):
         else:
             base_url = gepetto.config.parsed_ini.get('OpenAI', 'BASE_URL')
 
-        self.client = openai.OpenAI(
+        self.client = openai.Groq(
             api_key=api_key,
             base_url=base_url,
             http_client=_httpx.Client(
@@ -65,7 +65,7 @@ class GPT(LanguageModel):
                 messages=[
                     {"role": "user", "content": query}
                 ],
-                **additional_model_options
+                max_tokens=8192, **additional_model_options
             )
             ida_kernwin.execute_sync(functools.partial(cb, response=response.choices[0].message.content),
                                      ida_kernwin.MFF_WRITE)
@@ -76,10 +76,8 @@ class GPT(LanguageModel):
                 print(_("Unfortunately, this function is too big to be analyzed with the model's current API limits."))
             else:
                 print(_("General exception encountered while running the query: {error}").format(error=str(e)))
-        except openai.OpenAIError as e:
-            print(_("{model} could not complete the request: {error}").format(model=self.model, error=str(e)))
         except Exception as e:
-            print(_("General exception encountered while running the query: {error}").format(error=str(e)))
+            print(_("Error while running the query: {error}").format(error=str(e)))
 
     # -----------------------------------------------------------------------------
 

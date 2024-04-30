@@ -80,6 +80,6 @@ msgstr "General exception encountered while running the query: {error}"
 msgid "Request to {model} sent..."
 msgstr "Request to {model} sent..."
 
-msgid "Please edit this script to insert your OpenAI API key!"
-msgstr "Please edit this script to insert your OpenAI API key!"
+msgid "Please edit this script to insert your Groq API key!"
+msgstr "Please edit this script to insert your Groq API key!"
 

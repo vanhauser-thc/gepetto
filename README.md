@@ -1,7 +1,7 @@
-# Gepetto
+# Gepetto fork
 
-Gepetto is a Python script which uses OpenAI's gpt-3.5-turbo and gpt-4 models to provide meaning to functions decompiled
-by IDA Pro. At the moment, it can ask gpt-3.5-turbo to explain what a function does, and to automatically rename its 
+Gepetto fork is a Python script which uses Groq's llama3-70b-8096 model to provide meaning to functions decompiled
+by IDA Pro. At the moment, it can ask to explain what a function does, and to automatically rename its 
 variables. Here is a simple example of what results it can provide in mere seconds:
 
 ![](https://github.com/JusticeRage/Gepetto/blob/main/readme/comparison.png?raw=true)
@@ -22,16 +22,7 @@ Finally, with the corresponding interpreter, simply run:
 
 ⚠️ You will also need to edit the configuration file (found as `gepetto/config.ini`) and add your own API key, which 
 can be found on [this page](https://beta.openai.com/account/api-keys).
-Please note that OpenAI API queries are not free (although not very expensive) and you will need to set up a payment 
-method.
-
-⚠️ In order to use GPT-4, you will need to get access to the API. It may be requested at 
-[this address](https://openai.com/waitlist/gpt-4-api). If GPT-4 is not available for your account, the API will
-return the following error message:
-
-```
-The model: `gpt-4` does not exist
-```
+Please note that Groq API queries are currently free but rate limited!
 
 ## Usage
 
@@ -75,7 +66,7 @@ you can contribute to the project by adding it yourself! The translation portal 
 
 ## Acknowledgements
 
-- [OpenAI](https://openai.com), for making these incredible models, obviously
+- [Groq](https://openai.com), for making these incredible models, obviously
 - [Hex Rays](https://hex-rays.com/), the makers of IDA for their lightning fast support
 - [Kaspersky](https://kaspersky.com), for initially funding this project
 - [HarfangLab](https://harfanglab.io/), the current backer making this work possible

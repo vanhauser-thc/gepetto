@@ -117,5 +117,5 @@ msgstr ""
 msgid "Request to {model} sent..."
 msgstr "Requête envoyée à {model}..."
 
-msgid "Please edit this script to insert your OpenAI API key!"
+msgid "Please edit this script to insert your Groq API key!"
 msgstr "Merci d'ajouter votre clé API OpenAI dans ce script !"
