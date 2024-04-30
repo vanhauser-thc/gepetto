@@ -47,9 +47,9 @@ you can always run the command again.
 
 ## Limitations
 
-- The plugin requires access to the HexRays decompiler to function.
-- gpt-3.5-turbo and gpt-4 are general-purpose language models and may very well get things wrong! Always be critical of 
-results returned!
+- only 6000 tokens can be sent to the Groq API at once, easily reached with the "rename variables" feature.
+- Groq API has rate limiting for free accounts, you will hit it fast :)
+
 
 ## Translations
 
@@ -66,7 +66,7 @@ you can contribute to the project by adding it yourself! The translation portal 
 
 ## Acknowledgements
 
-- [Groq](https://openai.com), for making these incredible models, obviously
+- [Groq](https://groq.com), for their service
 - [Hex Rays](https://hex-rays.com/), the makers of IDA for their lightning fast support
 - [Kaspersky](https://kaspersky.com), for initially funding this project
 - [HarfangLab](https://harfanglab.io/), the current backer making this work possible
