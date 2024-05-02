@@ -1,7 +1,11 @@
 # Gepetto fork
 
 Gepetto fork is a Python script which uses Groq's llama3-70b-8096 model to provide meaning to functions decompiled
-by IDA Pro. At the moment, it can ask to explain what a function does, and to automatically rename its 
+by IDA Pro. If Groq fails (rate limit reached or context too long), then together.ai is queried if an
+API key for it is configured, using mixtral-8x22b with 64kb context. They give 25$ when
+opening an account, so a lot of free LLM interference.
+
+At the moment, it can ask to explain what a function does, and to automatically rename its 
 variables. Here is a simple example of what results it can provide in mere seconds:
 
 ![](https://github.com/JusticeRage/Gepetto/blob/main/readme/comparison.png?raw=true)
@@ -49,7 +53,7 @@ you can always run the command again.
 
 - only 6000 tokens can be sent to the Groq API at once, easily reached with the "rename variables" feature.
 - Groq API has rate limiting for free accounts, you will hit it fast :)
-
+- Together.AI API is only free for 25$ (about 25 million in/out tokens)
 
 ## Translations
 

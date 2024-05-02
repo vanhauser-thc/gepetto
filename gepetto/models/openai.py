@@ -6,6 +6,7 @@ import threading
 import httpx as _httpx
 import ida_kernwin
 import groq as openai 
+from together import Together
 
 from gepetto.models.base import LanguageModel
 import gepetto.config
@@ -24,6 +25,13 @@ class GPT(LanguageModel):
         if not api_key:
             print(_("Please edit the configuration file to insert your Groq API key!"))
             raise ValueError("No valid Groq API key found")
+
+        if not gepetto.config.parsed_ini.get('OpenAI', 'TOGETHER_API_KEY'):
+            together_api_key = os.getenv("TOGETHER_API_KEY")
+        else:
+            together_api_key = gepetto.config.parsed_ini.get('OpenAI', 'TOGETHER_API_KEY')
+        if not api_key:
+            print(_("You do not have a Together.ai API key set!"))
 
         # Get OPENAPI proxy
         if not gepetto.config.parsed_ini.get('OpenAI', 'OPENAI_PROXY'):
@@ -78,6 +86,16 @@ class GPT(LanguageModel):
                 print(_("General exception encountered while running the query: {error}").format(error=str(e)))
         except Exception as e:
             print(_("Error while running the query: {error}").format(error=str(e)))
+            client = Together(api_key=together_api_key)
+            try:
+                response = client.chat.completions.create(
+                    model="mistralai/Mixtral-8x22B-Instruct-v0.1",
+                    messages=query,
+                )
+                ida_kernwin.execute_sync(functools.partial(cb, response=response.choices[0].message.content),
+                                     ida_kernwin.MFF_WRITE)
+            except Exception as e:
+                print(_("Error while running the query: {error}").format(error=str(e)))
 
     # -----------------------------------------------------------------------------
 
